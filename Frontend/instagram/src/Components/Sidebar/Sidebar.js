@@ -4,7 +4,7 @@ import { RiSendPlaneLine } from "react-icons/ri";
 import logo from "../../Photos/instalogo.png"
 const Sidebar = () => {
     return (
-        <Box ml="10" maxWidth="15%" h="100%" display="flex" flexDirection="column" justifyContent="space-around" borderRight="1px solid lightgray">
+        <Box minH="100vh" position="sticky" ml="10" left="0" top="0" maxWidth="15%" h="100%" display="flex" flexDirection="column" justifyContent="space-around" borderRight="1px solid lightgray" >
             <Image src={logo} w="60%" />
 
             <Box display="flex" flexDirection="row" minw="100%" alignItems="center" fontSize="20px"
