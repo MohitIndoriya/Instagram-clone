@@ -1,8 +1,27 @@
-import { Box, Flex, Input, Button, Text, Image } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Box, Flex, Input, Button, Text, Image, useToast } from '@chakra-ui/react';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux"
 import logo from "../../Photos/instalogo.png"
-
+import { authRegister } from '../../redux/actions/auth.actions';
+let init = {
+    name: "",
+    username: "",
+    email: "",
+    password: ""
+}
 function Signup() {
+    let [data, setdata] = useState(init)
+    let auth = useSelector((store) => store.auth)
+    let navigate = useNavigate()
+    let dispatch = useDispatch()
+    let toast = useToast()
+    function handleInputs(e) {
+        setdata({ ...data, [e.target.name]: e.target.value })
+    }
+    function handleSignup() {
+        dispatch(authRegister({ navigate, toast, ...data }))
+    }
     return (
         <Flex
             direction="column"
@@ -29,6 +48,9 @@ function Signup() {
                         mb={4}
                         size="lg"
                         borderRadius={3}
+                        name="email"
+                        value={data.email}
+                        onChange={handleInputs}
                     />
                     <Input
                         placeholder="Full Name"
@@ -36,6 +58,9 @@ function Signup() {
                         mb={4}
                         size="lg"
                         borderRadius={3}
+                        name="name"
+                        value={data.name}
+                        onChange={handleInputs}
                     />
                     <Input
                         placeholder="Username"
@@ -43,6 +68,9 @@ function Signup() {
                         mb={4}
                         size="lg"
                         borderRadius={3}
+                        name="username"
+                        value={data.username}
+                        onChange={handleInputs}
                     />
                     <Input
                         type="password"
@@ -51,13 +79,16 @@ function Signup() {
                         mb={4}
                         size="lg"
                         borderRadius={3}
+                        name="password"
+                        value={data.password}
+                        onChange={handleInputs}
                     />
                     <Text fontSize="sm" mb={15} color="rgba(var(--f52, 142, 142, 142), 1)">
                         People who use our service may have uploaded  your contact information to Instagram. Learn  More<br />
                         By signing up, you agree to our Terms , Data Policy and Cookies
                         Policy .
                     </Text>
-                    <Button colorScheme="blue" mb={4} size="lg" w="100%" borderRadius={8} h="8" p={5}>
+                    <Button isDisabled={auth.isLoading ? true : false} onClick={handleSignup} colorScheme="blue" mb={4} size="lg" w="100%" borderRadius={8} h="8" p={5}>
                         Sign Up
                     </Button>
                 </Box>

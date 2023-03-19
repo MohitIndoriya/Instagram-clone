@@ -1,8 +1,27 @@
-import { Box, Flex, Input, Button, Text, Image } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Box, Flex, Input, Button, Text, Image, useToast } from '@chakra-ui/react';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from "../../Photos/instalogo.png"
 import instamobile from "../../Photos/instamobile.jpg"
+import { authLogin } from '../../redux/actions/auth.actions';
+let init = {
+    email: "",
+    password: ""
+}
 function Signin() {
+    let [data, setdata] = useState(init)
+    let auth = useSelector((store) => store.auth)
+    let navigate = useNavigate()
+    let dispatch = useDispatch()
+    let toast = useToast()
+    function handleInputs(e) {
+        setdata({ ...data, [e.target.name]: e.target.value })
+    }
+    function handleSignin() {
+        dispatch(authLogin({ navigate, toast, ...data }))
+    }
+    console.log(auth)
     return (
         <Flex
             direction="row"
@@ -26,6 +45,9 @@ function Signin() {
                         mb={4}
                         size="lg"
                         borderRadius={3}
+                        name="email"
+                        value={data.email}
+                        onChange={handleInputs}
                     />
 
                     <Input
@@ -35,9 +57,12 @@ function Signin() {
                         mb={4}
                         size="lg"
                         borderRadius={3}
+                        name="password"
+                        value={data.password}
+                        onChange={handleInputs}
                     />
 
-                    <Button colorScheme="blue" mb={0} size="lg" w="100%" borderRadius={8} h="8" p={5}>
+                    <Button isDisabled={auth.isLoading ? true : false} onClick={handleSignin} colorScheme="blue" mb={0} size="lg" w="100%" borderRadius={8} h="8" p={5}>
                         Log In
                     </Button>
                 </Box>

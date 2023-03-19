@@ -2,6 +2,7 @@ import { Box, Flex, Avatar, Text, IconButton, Image } from "@chakra-ui/react";
 import { AiFillHome, AiOutlineHeart, AiOutlineCompass, AiOutlineSearch, AiFillMessage, AiOutlineMessage, AiFillFileAdd, AiOutlinePlus, AiOutlinePlusCircle, AiOutlinePlusSquare } from "react-icons/ai";
 import { RiSendPlaneLine } from "react-icons/ri";
 import logo from "../../Photos/instalogo.png"
+import CreatePost from "../CreatePost/Createpost";
 const Sidebar = () => {
     return (
         <Box minH="100vh" position="sticky" ml="10" left="0" top="0" maxWidth="15%" h="100%" display="flex" flexDirection="column" justifyContent="space-around" borderRight="1px solid lightgray" >
@@ -81,7 +82,7 @@ const Sidebar = () => {
 
             >
                 Direct
-            </IconButton><Text>Create</Text></Box>
+            </IconButton><Text><CreatePost /></Text></Box>
 
             <Flex alignItems="center" mb="4" fontSize="20px"
             >
