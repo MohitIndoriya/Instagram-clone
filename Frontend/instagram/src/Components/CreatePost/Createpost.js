@@ -14,15 +14,15 @@ import {
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addnewpost } from "../../redux/actions/post.actions";
+import { UplodeFile } from "./upload";
 let init = {
     caption: "",
-    image: " "
 }
 
 function CreatePost(props) {
     let [data, setdata] = useState(init)
+    let [pic, setPic] = useState("")
     const [isOpen, setIsOpen] = useState(false);
-    const [imageUrl, setImageUrl] = useState("");
 
     function openModal() {
         setIsOpen(true);
@@ -32,9 +32,7 @@ function CreatePost(props) {
         setIsOpen(false);
     }
 
-    function handleImageUrlChange(event) {
-        setImageUrl(event.target.value);
-    }
+
     function handleInputs(e) {
         setdata({ ...data, [e.target.name]: e.target.value })
     }
@@ -43,7 +41,7 @@ function CreatePost(props) {
 
     function handleUpload() {
         // Handle image upload here
-        dispatch(addnewpost({ ...data }))
+        dispatch(addnewpost({ ...data, image: pic }))
         // You could also call props.onUpload(imageUrl) to pass the image URL back to the parent component
         closeModal();
     }
@@ -59,10 +57,10 @@ function CreatePost(props) {
                         <FormControl>
                             <FormLabel>Image URL</FormLabel>
                             <Input
-                                type="text"
-                                name="image"
-                                value={data.image}
-                                onChange={handleInputs}
+                                type="file"
+                                p={1.5}
+                                accept="image/*"
+                                onChange={(e) => UplodeFile(e.target.files[0], setPic)}
                             />
                             <Input placeholder="Enter caption " name="caption" value={data.caption} onChange={handleInputs}></Input>
                         </FormControl>

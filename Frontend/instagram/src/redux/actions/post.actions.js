@@ -9,7 +9,7 @@ export const getallposts = () => async (dispatch) => {
                 Authorization: token
             }
         })
-        console.log(res)
+        console.log(res, "yeababy")
         return dispatch({ type: GETALLPOST, payload: res.data })
     } catch (error) {
 
@@ -37,8 +37,22 @@ export const likeapost = (_id) => async (dispatch) => {
                 Authorization: token
             }
         })
-        console.log(res)
-        return dispatch({ type: ADDNEWPOST, payload: { _id, username, image: username } })
+        return
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const addcomment = ({ _id, text }) => async (dispatch) => {
+    console.log(_id, text);
+    let { token, username } = JSON.parse(localStorage.getItem("auth"))
+    try {
+        let res = await axios.post(`http://localhost:8080/post/comment/${_id}`, { text }, {
+            headers: {
+                Authorization: token
+            }
+        })
+        return dispatch(getallposts())
     } catch (error) {
         console.log(error)
     }

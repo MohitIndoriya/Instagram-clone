@@ -26,7 +26,7 @@ export const postReducer = (state = init, { type, payload }) => {
         case LIKEAPOST:
             let liked = state.posts.find((post) => post._id === payload._id)
             liked.likes.push({ username: payload.username, image: payload.image })
-            console.log(liked)
+            console.log("hey", liked)
             return {
                 ...state, posts: [liked, ...state.posts]
             }
