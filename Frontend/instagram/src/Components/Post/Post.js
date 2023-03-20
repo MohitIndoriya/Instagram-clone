@@ -40,7 +40,7 @@ function Post() {
         setcomment(e.target.value)
     }
     return (
-        <Box maxW="100%" mx="auto" p={4}>
+        <Box w="60%" mx="auto" p={4}>
             {posts?.map((post) => <Singlepost post={post} setlike={setlike} dispatch={dispatch} />)}
         </Box>
     );

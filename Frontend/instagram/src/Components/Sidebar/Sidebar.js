@@ -1,9 +1,13 @@
 import { Box, Flex, Avatar, Text, IconButton, Image } from "@chakra-ui/react";
 import { AiFillHome, AiOutlineHeart, AiOutlineCompass, AiOutlineSearch, AiFillMessage, AiOutlineMessage, AiFillFileAdd, AiOutlinePlus, AiOutlinePlusCircle, AiOutlinePlusSquare } from "react-icons/ai";
 import { RiSendPlaneLine } from "react-icons/ri";
+import { useSelector } from "react-redux";
 import logo from "../../Photos/instalogo.png"
 import CreatePost from "../CreatePost/Createpost";
+import Editprofilemodel from "../Editprofile/Editprofilemodel";
 const Sidebar = () => {
+    let auth = useSelector((store) => store.auth)
+    console.log(auth, "auth");
     return (
         <Box minH="100vh" position="sticky" ml="10" left="0" top="0" maxWidth="15%" h="100%" display="flex" flexDirection="column" justifyContent="space-around" borderRight="1px solid lightgray" >
             <Image src={logo} w="60%" />
@@ -88,12 +92,12 @@ const Sidebar = () => {
             >
                 <Avatar
                     size="sm"
-                    name="John Doe"
-                    src="https://bit.ly/dan-abramov"
+                    name={auth.username}
+                    src={auth.username}
                     mr="4"
 
                 />
-                <Text fontWeight="bold">Profile</Text>
+                <Text fontWeight="bold"><Editprofilemodel username={auth.username} /></Text>
             </Flex>
 
 

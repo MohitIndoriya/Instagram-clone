@@ -6,6 +6,7 @@ import { FaHeart, FaComment, FaShare } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux"
 import { addcomment, getallposts, likeapost } from "../../redux/actions/post.actions";
 import Alllikes from "../Alllikes/Alllikes";
+import Allcomment from '../Allcomments/Allcomments';
 export default function Singlepost({ post, setlike, dispatch }) {
     const [comment, handelComment] = useState("")
     function handleKeyDown(e) {
@@ -31,7 +32,7 @@ export default function Singlepost({ post, setlike, dispatch }) {
                         }} />      <Text fontWeight="bold" ml="10px">{post.likes.length} <Alllikes avatars={post.likes} /></Text>
                     </Button>
                     <Button variant="ghost" size="sm" ml={2}>
-                        <AiOutlineComment />  <Text fontWeight="bold" ml="10px">{post.comments.length} comments</Text>
+                        <AiOutlineComment />  <Text fontWeight="bold" ml="10px">{post.comments.length} <Allcomment post={post} /> </Text>
                     </Button>
                 </Box>
                 <Box>
