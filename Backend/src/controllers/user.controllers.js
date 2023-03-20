@@ -70,4 +70,29 @@ const USERNAME = async (req, res) => {
     return res.status(500).send(error.message)
   }
 }
-module.exports = { SIGNUP, LOGIN, USERNAME }
+
+const UPDATEPROFILE = async (req, res) => {
+  let { userid } = req.params
+  try {
+    console.log(req.user, userid)
+    if (req.user.id != userid) {
+      return res.status(500).send("can not perform this action")
+    }
+    let uddate = await User.updateOne({ _id: userid }, { $set: { ...req.body } })
+    return res.status(201).send(uddate)
+  } catch (error) {
+    return res.status(500).send(e.message)
+  }
+}
+
+const GETALLUSER = async (req, res) => {
+  let { page = 1 } = req.query
+  try {
+    let users = await User.find({}, { _id: 1, username: 1, image: 1 }).skip((page - 1) * 10).limit(10)
+    return res.status(200).send(users)
+  } catch (e) {
+    return res.status(500).send(e.message)
+  }
+}
+
+module.exports = { SIGNUP, LOGIN, USERNAME, UPDATEPROFILE, GETALLUSER }
